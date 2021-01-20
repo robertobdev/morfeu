@@ -11,17 +11,23 @@ var connection = mysql.createConnection({
 });
 
 const app = () => {
-  const tables = ['users', 'user_types'];
-  const sql = selectBuilder(tables);
+  const tables = [
+    {
+      alias: 'us',
+      table: 'user'
+    },
+  ];
+
+  const sql = selectBuilder(tables, [1, 2, 3]);
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     // connected!
     let insert = '';
     results.forEach((result, index) => {
-      insert += insertBuilder(result, tables[index]);
+      insert += insertBuilder(result, tables[index].table);
     });
     fs.writeFileSync('insert.sql', insert);
-    exit(insert);
+    exit();
   });
 };
 
