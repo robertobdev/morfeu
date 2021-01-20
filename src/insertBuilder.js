@@ -19,7 +19,7 @@ const builderInsertValues = (resultsRaw) => {
         return `'${valueRaw.toISOString().slice(0, 19).replace('T', ' ')}'`;
       } else if (typeof valueRaw === 'string') {
         return `'${valueRaw}'`;
-      } else if (!valueRaw) {
+      } else if (!valueRaw && typeof valueRaw === 'object') {
         return 'null';
       } else {
         return valueRaw;
